@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import isWinningCell from '../datamodel/game';
 
 export default function Board({ board, handlePress, winningSequence }) {
-    const isWinningCell = (index) => winningSequence.includes(index);
 
     return (
         <View style={styles.chessBoard}>
@@ -10,13 +10,12 @@ export default function Board({ board, handlePress, winningSequence }) {
                 <TouchableOpacity
                     activeOpacity={0.5}
                     key={idx}
-                    onPress={() => handlePress(idx)}
-                    style={[
-                        styles.box,
-                        isWinningCell(idx) && styles.winningCell,
-                    ]}>
+                    onPress={() => handlePress(idx)}>
                     <View style={styles.box}>
-                        <Text style={styles.chessText}>{x}</Text>
+                        <Text style={
+                            isWinningCell(winningSequence, idx) ? styles.winningCellText : styles.chessText
+                        }>{x}</Text>
+                        {/* <Text style={styles.chessText}>{x}</Text> */}
                     </View>
                 </TouchableOpacity>
                 )
@@ -45,14 +44,16 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'green'
+        backgroundColor: 'green',
     },
     chessText: {
         fontSize: 40,
         fontWeight: 'bold',
-        color: 'white'
+        color: 'white',
     },
-    winningCell: {
-        backgroundColor: 'yellow', // Change to any color you prefer for highlighting
+    winningCellText: {
+        fontSize: 40,
+        fontWeight: 'bold',
+        color: 'red', 
     },
 });
