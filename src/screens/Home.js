@@ -78,6 +78,7 @@ export default function Home({ navigation, route }) {
         setNextSymbol('X')
         setWinner('')
         setWinningSequence([]);
+        
     }
 
     const navigateBackward = () => {

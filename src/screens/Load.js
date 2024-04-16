@@ -14,7 +14,7 @@ export default function Load({navigation}) {
     const [games, setGames] = useState([])
     const isFocused = useIsFocused();
 
-    const navigateBack = () => { navigation.goBack() }
+    const navigateBack = () => navigation.navigate('Home', { gameToLoad: null });
 
     const loadGames = async () => {
         const data = await loadData()
