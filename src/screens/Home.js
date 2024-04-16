@@ -2,15 +2,15 @@ import { Alert, StyleSheet, Text, View } from 'react-native';
 import Board from '../components/Board';
 import TButton from '../components/TButton';
 import Title from '../components/Title';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { calculateGameStatus, checkWinner } from '../datamodel/game.js';
 import { saveData } from '../datamodel/gameStorage.js';
-import GameItem from '../components/GameItem.js';
-import { formattedDateTime, getCurrDate, getCurrTime } from '../utils/dateTimeUtil.js';
 import moment from 'moment';
 import Game from '../models/Game.js';
+import { useIsFocused } from "@react-navigation/native";
 
-export default function Home({ navigation }) {
+
+export default function Home({ navigation, route }) {
     const emptyBoard = ['', '', '', '', '', '', '', '', '']
     const [winningSequence, setWinningSequence] = useState([]);
     const [winner, setWinner] = useState('');
@@ -24,6 +24,27 @@ export default function Home({ navigation }) {
     const navToLoad = () => navigation.navigate('Load')
 
     const [nextSymbol, setNextSymbol] = useState('X'); // Track whose turn it is
+   
+    const gameLoaded = route.params?.gameToLoad; 
+
+    console.log("DATA LOADED:  ",gameLoaded);
+    const isFocused = useIsFocused();
+
+
+    useEffect(() => {
+        if (isFocused) {
+           if (gameLoaded) {
+            // setCurrentBoard();
+            setCurrentBoard(gameLoaded);
+        } else {
+            setEmptyBoard();
+        
+        }
+
+        }
+    }
+    , [isFocused]);
+
 
 
     const handlePress = (index) => {
@@ -95,7 +116,7 @@ export default function Home({ navigation }) {
                 onPress: () => {
                     console.log('Save and start a new game')
                    
-                    const game = new Game(0, winner, moveHistory.length, moment().format("YYYY-MM-DD"), moment().format("HH:mm:ss"))
+                    const game = new Game(0, currentBoard, winner, moveHistory.length, moment().format("YYYY-MM-DD"), moment().format("HH:mm:ss"))
                     saveData(
                        { game}
                     )

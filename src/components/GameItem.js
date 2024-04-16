@@ -1,9 +1,12 @@
 import {Text, View, StyleSheet, Alert} from 'react-native';
 import TButton from './TButton';
-import { removeTask } from '../datamodel/gameStorage';
+import { removeTask, loadGameData } from '../datamodel/gameStorage';
 
 
-const GameItem = ({ id, result, steps, date, time }) => {
+const GameItem = ({ id, result, steps, date, time, game, navigation }) => {
+
+  const navToHome = () => navigation.navigate('Home', { gameToLoad: game });
+
 
   const onDeleteButtonClick = () => {
     Alert.alert('Delete Game', 'Are you sure to delete the game?', [
@@ -17,17 +20,17 @@ const GameItem = ({ id, result, steps, date, time }) => {
         },
         {
             text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
+            onPress: () => console.log(game),
             style: 'cancel',
+
         }
     ])
 }
 
 const onLoadButtonClick = () => {
-    console.log('Load Game Pressed', id)
-   
-
-}
+    // console.log('Load Game Pressed', game)
+    navToHome()
+};
 
 
 

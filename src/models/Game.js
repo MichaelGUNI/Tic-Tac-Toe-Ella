@@ -1,6 +1,7 @@
 class Game {
-    constructor(id, result, steps, date,time) {
+    constructor(id, game, result, steps, date,time) {
         this.id = id;
+        this.game = game;
         this.result = result;
         this.steps = steps; 
         this.date = date;
@@ -13,6 +14,15 @@ class Game {
 
     getId() {
         return this.id;
+    }
+
+    // Getter and setter methods for the game, steps made
+    setGame() {
+        this.game = game;
+    }
+
+    getGame() {
+        return this.game;
     }
 
     setResult(result) {

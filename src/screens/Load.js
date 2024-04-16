@@ -37,7 +37,7 @@ export default function Load({navigation}) {
             <View style={styles.darkContainer}>
                 <FlatList
                     data={games}
-                    renderItem={({ item }) => <GameItem id={item.id} result={item.result} steps={item.steps} date={item.date} time={item.time} />}
+                    renderItem={({ item }) => <GameItem id={item.id} game={item.game} result={item.result} steps={item.steps} date={item.date} time={item.time}  navigation={navigation}/>}
                     keyExtractor={game => game.id}
                 />
             </View>
