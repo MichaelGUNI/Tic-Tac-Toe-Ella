@@ -34,8 +34,17 @@ export default function Home({ navigation, route }) {
     useEffect(() => {
         if (isFocused) {
            if (gameLoaded) {
-            // setCurrentBoard();
             setCurrentBoard(gameLoaded);
+            const newBoard = [...currentBoard];
+           
+            const { winner, winningLines } = checkWinner(gameLoaded);
+            
+            setWinner(winner);
+
+            if (winner !== null && winner !== '') {
+                setWinningSequence(winningLines.flat());
+            }
+            console.log("Winner: ", winner)
         } else {
             setEmptyBoard();
         
