@@ -1,13 +1,11 @@
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { loadData } from "../datamodel/gameStorage";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import GameItem from "../components/GameItem";
 import Title from "../components/Title";
 import TButton from "../components/TButton";
-import Message from "../components/Message";
 import Colors from "../constants/Colors";
 
 export default function Load({navigation}) {
@@ -28,6 +26,9 @@ export default function Load({navigation}) {
         }
     }, [isFocused]);
 
+    const onGameDeleted = () => {
+        loadGames(); // Reload the game list after a game is deleted
+    };
 
 
 
@@ -37,8 +38,18 @@ export default function Load({navigation}) {
             <View style={styles.darkContainer}>
                 <FlatList
                     data={games}
-                    renderItem={({ item }) => <GameItem id={item.id} game={item.game} result={item.result} steps={item.steps} date={item.date} time={item.time}  navigation={navigation}/>}
-                    keyExtractor={game => game.id}
+                    renderItem={({ item }) => 
+                    <GameItem 
+                    id={item.id} 
+                    game={item.game} 
+                    result={item.result}
+                    steps={item.steps}
+                    date={item.date}
+                    time={item.time}
+                    navigation={navigation}
+                    onGameDeleted={onGameDeleted}  // Callback function to reload the game list
+                />
+                }
                 />
             </View>
             <TButton title={"Back"} onPress={navigateBack}></TButton>

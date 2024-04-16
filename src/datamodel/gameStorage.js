@@ -71,22 +71,3 @@ export async function removeTask(id) {
 }
 
 
-// Function to set loadGameData, finds exact game by id
-
-// export async function loadGameData(id) {
-//     try {
-
-//         // if gametoLoad reset, may not be needed
-
-//         const result = await AsyncStorage.getItem(gameToLoad);
-//         if (result !== null) {
-//             const games = JSON.parse(result).games;
-//             const gameData = games.find(game => game.id === id);
-//             return gameData ? gameData : null;
-//         }
-//         return null;
-//     } catch (e) {
-//         console.log('Failed to load game data', e);
-//         return null;
-//     }
-// }

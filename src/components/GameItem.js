@@ -1,9 +1,9 @@
 import {Text, View, StyleSheet, Alert} from 'react-native';
 import TButton from './TButton';
-import { removeTask, loadGameData } from '../datamodel/gameStorage';
+import { removeTask } from '../datamodel/gameStorage';
 
 
-const GameItem = ({ id, result, steps, date, time, game, navigation }) => {
+const GameItem = ({ id, result, steps, date, time, game, navigation, onGameDeleted }) => {
 
   const navToHome = () => navigation.navigate('Home', { gameToLoad: game });
 
@@ -12,24 +12,29 @@ const GameItem = ({ id, result, steps, date, time, game, navigation }) => {
     Alert.alert('Delete Game', 'Are you sure to delete the game?', [
         {
             text: 'DELETE',
-            onPress: () => {
-                console.log('Delete Game Pressed', id)
-                removeTask(id);
-               
+            onPress: async () => {
+                console.log('Delete Game Pressed', id);
+                await removeTask(id);
+                deleteGame();
             }
         },
         {
             text: 'Cancel',
             onPress: () => console.log(game),
             style: 'cancel',
-
         }
-    ])
-}
+    ]);
+};
 
 const onLoadButtonClick = () => {
     // console.log('Load Game Pressed', game)
     navToHome()
+};
+
+const deleteGame = async () => {
+  console.log('Delete Game Pressed', id);
+  await removeTask(id);
+  onGameDeleted();
 };
 
 

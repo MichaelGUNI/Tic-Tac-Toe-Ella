@@ -24,7 +24,7 @@ export default function Home({ navigation, route }) {
     const navToLoad = () => navigation.navigate('Load')
 
     const [nextSymbol, setNextSymbol] = useState('X'); // Track whose turn it is
-   
+    // data loaded from the Load screen
     const gameLoaded = route.params?.gameToLoad; 
 
     console.log("DATA LOADED:  ",gameLoaded);
