@@ -1,8 +1,36 @@
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, Alert} from 'react-native';
 import TButton from './TButton';
+import { removeTask } from '../datamodel/gameStorage';
 
 
 const GameItem = ({ id, result, steps, date, time }) => {
+
+  const onDeleteButtonClick = () => {
+    Alert.alert('Delete Game', 'Are you sure to delete the game?', [
+        {
+            text: 'DELETE',
+            onPress: () => {
+                console.log('Delete Game Pressed', id)
+                removeTask(id);
+               
+            }
+        },
+        {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+        }
+    ])
+}
+
+const onLoadButtonClick = () => {
+    console.log('Load Game Pressed', id)
+   
+
+}
+
+
+
 
   return (
      
@@ -13,8 +41,8 @@ const GameItem = ({ id, result, steps, date, time }) => {
       <Text>Date: {date}  </Text>
       <Text>Time: {time}  </Text>
       <View style={styles.buttonContainer}>
-        <TButton title={"Load"} onPress={null} />
-        <TButton title={"Delete"} onPress={null} />
+        <TButton title={"Load"} onPress={onLoadButtonClick} />
+        <TButton title={"Delete"} onPress={onDeleteButtonClick} />
       </View>
     </View>
   )};

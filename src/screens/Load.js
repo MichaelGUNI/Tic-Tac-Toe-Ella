@@ -29,6 +29,8 @@ export default function Load({navigation}) {
     }, [isFocused]);
 
 
+
+
     return (
         <View style={styles.container}>
             <Title text={"Load"} />

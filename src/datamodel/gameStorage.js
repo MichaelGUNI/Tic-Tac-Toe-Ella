@@ -54,10 +54,17 @@ export async function saveList(games) {
     }
 }
 
-export async function removeTask() {
+// Updated removeTask function
+export async function removeTask(id) {
     try {
-        await AsyncStorage.removeItem(key)
+        const result = await AsyncStorage.getItem(key);
+        if (result !== null) {
+            const gamesData = JSON.parse(result);
+            const filteredGames = gamesData.games.filter(game => game.id !== id); // Remove the game with the specified id
+            await AsyncStorage.setItem(key, JSON.stringify({ games: filteredGames }));
+            console.log('Game deleted:', id);
+        }
     } catch (e) {
-        console.log('fail to save data', e)
+        console.log('Failed to delete game data', e);
     }
 }
